@@ -1,0 +1,31 @@
+{
+  "name": "cedis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node build/index.js"
+  },
+  "devDependencies": {
+    "@types/tedious": "^4.0.12",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "2.8.8",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/shortid": "^0.0.29",
+    "fp-ts": "^2.16.1",
+    "module-alias": "^2.2.3",
+    "reflect-metadata": "^0.1.13",
+    "shortid": "^2.2.16",
+    "tedious": "^16.4.0",
+    "tsyringe": "^4.8.0"
+  },
+  "_moduleAliases": {
+    "@": "build"
+  }
+}
