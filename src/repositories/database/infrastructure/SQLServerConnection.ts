@@ -9,11 +9,13 @@ export class SQLServerConnection
 {
   static config: tedious.ConnectionConfig = {
     server: 'localhost',
-    options: {},
+    options: {
+      database: 'SQLServerPOC'
+    },
     authentication: {
       type: 'default',
       options: {
-        userName: 'test',
+        userName: 'sqlserverproc',
         password: 'test'
       }
     }
@@ -27,19 +29,21 @@ export class SQLServerConnection
 
   connect() {
     const connecting = new Promise<tedious.Connection>((resolve, reject) => {
-      this.connection.on('connect', (err) => {
+      this.connection.connect((err) => {
         if (err) {
           reject(err);
+        } else {
+          // If no error, then good to go...
+          // console.log(this.connection['state']);
+          // setInterval(() => {
+            // if (this.connection.state === this.connection.STATE.LOGGED_IN) {
+            this._isConnected = true;
+            resolve(this.connection);
+            // }
+          // }, 1000);
         }
-        // If no error, then good to go...
-        this._isConnected = true;
-        resolve(this.connection);
       });
-
-      // Initialize the connection.
-      this.connection.connect();
     });
-    this.connection.connect();
     return connecting;
   }
   async isConnected() {
@@ -47,7 +51,7 @@ export class SQLServerConnection
   }
 
   async getConnection() {
-    return this._isConnected ? await this.connect() : this.connection;
+    return this._isConnected ? this.connection : await this.connect();
   }
   async disconnect() {}
 }
