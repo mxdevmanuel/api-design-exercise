@@ -14,7 +14,6 @@ export class MySQLUserDatabase implements UserDatabase {
           if (err) {
             reject(err);
           } else {
-            console.log('rows', rows);
             resolve(Array.from(rows));
           }
         });
@@ -24,13 +23,11 @@ export class MySQLUserDatabase implements UserDatabase {
   add(user: User): Promise<User> {
     return new Promise<User>((resolve, reject) => {
       this.dbRepository.getConnection().then((connection) => {
-        const sql = `INSERT INTO User (id, name) VALUES ('aaa', 'bbbb')`;
-        connection.query(sql, (err, rows) => {
-          console.error('err', err);
+        const sql = `INSERT INTO Users (id, name) VALUES ('${user.id}', '${user.name}')`;
+        connection.query(sql, (err) => {
           if (err) {
             reject(err);
           } else {
-            console.log('rows', rows);
             resolve(user);
           }
         });

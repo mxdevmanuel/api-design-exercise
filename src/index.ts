@@ -7,7 +7,5 @@ Container.setup();
 
 // eslint-disable-next-line sort-imports
 import { API } from '@/api';
-
 const api = container.resolve(API);
-
 api.setup();

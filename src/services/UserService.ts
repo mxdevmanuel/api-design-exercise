@@ -6,7 +6,7 @@ import { injectable } from "tsyringe";
 export class UserService {
     constructor(public userRepository: UserRepository) { }
 
-    geAllUsers(): Promise<User[]> {
+    getAllUsers(): Promise<User[]> {
         return this.userRepository.findAllUsers();
     }
 

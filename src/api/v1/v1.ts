@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { v1Component } from './component';
+import { v1Component } from './components';
 
 export class V1 {
   constructor() {}
