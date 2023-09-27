@@ -1,17 +1,18 @@
-import { User } from "@/entities/User";
-import UserRepository from "@/repositories/users";
-import { injectable } from "tsyringe";
+import { PaginationData } from "@/modules/common";
+import { User } from '@/entities/User';
+import UserRepository from '@/repositories/users';
+import { injectable } from 'tsyringe';
+
 
 @injectable()
 export class UserService {
-    constructor(public userRepository: UserRepository) { }
+  constructor(public userRepository: UserRepository) {}
 
-    getAllUsers(): Promise<User[]> {
-        return this.userRepository.findAllUsers();
-    }
+  getUsers(options: PaginationData): Promise<User[]> {
+    return this.userRepository.list(options);
+  }
 
-    async addUser(user: User): Promise<User> {
-        return this.userRepository.addUser(user);
-    }
-
+  async addUser(user: User): Promise<User> {
+    return this.userRepository.add(user);
+  }
 }

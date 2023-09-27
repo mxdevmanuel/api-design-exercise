@@ -11,7 +11,7 @@ export class SQLServerUserDatabase implements UserDatabase {
   constructor(
     @inject(SQLSERVERCONNECTION) private dbRepository: SQLServerConnection
   ) {}
-  findAll(): Promise<User[]> {
+  all(): Promise<User[]> {
     return new Promise<User[]>((resolve, reject) => {
       this.dbRepository.getConnection().then((connection) => {
         const request = new Request(

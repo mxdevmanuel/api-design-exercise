@@ -1,11 +1,11 @@
 import { create, list } from './controllers';
+import { createValidator, listValidator } from './validators';
 import { Router } from 'express';
-import { createValidator } from "./validators";
 
 export default function () {
   const router = Router();
 
-  router.get('/', list);
+  router.get('/', listValidator, list);
   router.post('/', createValidator, create);
 
   return router;
