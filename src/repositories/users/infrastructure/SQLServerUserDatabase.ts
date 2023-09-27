@@ -11,6 +11,10 @@ export class SQLServerUserDatabase implements UserDatabase {
   constructor(
     @inject(SQLSERVERCONNECTION) private dbRepository: SQLServerConnection
   ) {}
+  get(id: string): Promise<User | undefined> {
+    console.log('id', id);
+    throw new Error('Method not implemented.');
+  }
   all(): Promise<User[]> {
     return new Promise<User[]>((resolve, reject) => {
       this.dbRepository.getConnection().then((connection) => {

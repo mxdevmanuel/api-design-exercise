@@ -1,3 +1,4 @@
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { ZodError, ZodIssue } from 'zod';
 import { ErrorRequestHandler } from 'express';
 
@@ -16,7 +17,9 @@ export const payloadValidationError: ErrorRequestHandler = (
 ) => {
   if (err instanceof ZodError) {
     const errorList = err.issues.map(zodDetailsExtractor);
-    res.status(400).json({ issues: errorList });
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ issues: errorList, message: ReasonPhrases.BAD_REQUEST });
   } else {
     next(err);
   }

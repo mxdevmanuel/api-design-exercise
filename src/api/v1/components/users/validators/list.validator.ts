@@ -2,7 +2,6 @@ import { RequestHandler } from 'express';
 import { z } from 'zod';
 
 export const listValidator: RequestHandler = (req, res, next) => {
-  console.log('listValid', req.query);
   const listUsersSchema = z
     .object({
       page: z.coerce.number().optional(),

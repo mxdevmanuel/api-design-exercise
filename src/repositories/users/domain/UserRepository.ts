@@ -16,4 +16,8 @@ export class UserRepository {
   async list(options: PaginationData): Promise<User[]> {
     return await this.userdatabase.all(options);
   }
+
+  async get(id: string): Promise<User | undefined> {
+    return await this.userdatabase.get(id);
+  }
 }

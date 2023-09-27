@@ -6,8 +6,6 @@ import { User } from '@/entities/User';
 import { UserDatabase } from './userdatabase'
 import isNil from "lodash/isNil";
 
-
-
 @injectable()
 export class MySQLUserDatabase implements UserDatabase {
   constructor(@inject(MYSQLCONNECTION) private dbRepository: MySQLConnection) {}
@@ -39,5 +37,19 @@ export class MySQLUserDatabase implements UserDatabase {
         });
       });
     });
+  }
+  get(id: string): Promise<User | undefined> {
+    return new Promise<User | undefined>((resolve, reject) => {
+      this.dbRepository.getConnection().then(connection => {
+        const sql = `SELECT u.id, u.name FROM Users u WHERE u.id  = '${id}' LIMIT 1`;
+        connection.query(sql, (err, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows[0]);
+          }
+        });
+      })
+    })
   }
 }

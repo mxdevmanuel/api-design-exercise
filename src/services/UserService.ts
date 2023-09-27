@@ -8,6 +8,10 @@ import { injectable } from 'tsyringe';
 export class UserService {
   constructor(public userRepository: UserRepository) {}
 
+  getUser(id: string): Promise<User | undefined> {
+    return this.userRepository.get(id);
+  }
+
   getUsers(options: PaginationData): Promise<User[]> {
     return this.userRepository.list(options);
   }
