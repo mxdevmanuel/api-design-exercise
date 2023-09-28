@@ -1,5 +1,6 @@
-import { _delete, create, get, list, update } from './controllers';
+import { _delete, assign, create, get, list, update } from './controllers';
 import {
+  assignValidator,
   createValidator,
   deleteValidator,
   getValidator,
@@ -11,11 +12,14 @@ import { Router } from 'express';
 export default function () {
   const router = Router();
 
-  router.get('/', listValidator, list);
+  router.post('/:id/assigne', assignValidator, assign);
+
   router.get('/:id', getValidator, get);
-  router.post('/', createValidator, create);
   router.patch('/:id', updateValidator, update);
   router.delete('/:id', deleteValidator, _delete);
+
+  router.get('/', listValidator, list);
+  router.post('/', createValidator, create);
 
   return router;
 }

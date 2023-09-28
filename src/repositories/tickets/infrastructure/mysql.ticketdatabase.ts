@@ -15,7 +15,7 @@ export class MySQLTicketDatabase implements TicketDatabase {
     return new Promise<Ticket[]>((resolve, reject) => {
       this.dbRepository.getConnection().then((connection) => {
         connection.query(
-          `SELECT id, title, asigneeId FROM Tickets LIMIT ${size} OFFSET ${
+          `SELECT id, title, assigneeId FROM Tickets LIMIT ${size} OFFSET ${
             size * page
           }`,
           (err, rows) => {
@@ -35,7 +35,7 @@ export class MySQLTicketDatabase implements TicketDatabase {
       const fields = entries.map((entry) => entry[0]).join(', ');
       const values = entries.map((entry) => entry[1]);
       this.dbRepository.getConnection().then((connection) => {
-        const sql = `INSERT INTO Tickets (${fields}) VALUES ?`;
+        const sql = `INSERT INTO Tickets (${fields}) VALUES (?)`;
         connection.query(sql, [values], (err) => {
           if (err) {
             reject(err);
@@ -49,7 +49,7 @@ export class MySQLTicketDatabase implements TicketDatabase {
   get(id: string): Promise<Ticket | undefined> {
     return new Promise<Ticket | undefined>((resolve, reject) => {
       this.dbRepository.getConnection().then((connection) => {
-        const sql = `SELECT t.id, t.ticket, t.asigneeId FROM Tickets t WHERE t.id  = '${id}' LIMIT 1`;
+        const sql = `SELECT t.id, t.title, t.assigneeId FROM Tickets t WHERE t.id  = '${id}' LIMIT 1`;
         connection.query(sql, (err, rows) => {
           if (err) {
             reject(err);
@@ -60,14 +60,14 @@ export class MySQLTicketDatabase implements TicketDatabase {
       });
     });
   }
-  update(id: string, user: Partial<Ticket>): Promise<string | undefined> {
+  update(id: string, ticket: Partial<Ticket>): Promise<string | undefined> {
     return new Promise<string | undefined>((resolve, reject) => {
       this.dbRepository.getConnection().then((connection) => {
-        const updateString: string = Object.keys(user)
+        const updateString: string = Object.keys(ticket)
           .map((key) => `${key} =  ?`)
           .join(', ');
-        const sql = `UPDATE Users SET ${updateString} WHERE id  = '${id}'`;
-        connection.query(sql, Object.values(user), (err, result) => {
+        const sql = `UPDATE Tickets SET ${updateString} WHERE id  = '${id}'`;
+        connection.query(sql, Object.values(ticket), (err, result) => {
           if (err) {
             reject(err);
           } else {

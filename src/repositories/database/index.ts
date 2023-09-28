@@ -1,6 +1,6 @@
 import { DatabaseConnection } from "./infrastructure/databaseconnection";
-import { MySQLConnection } from "./infrastructure/MySQLConnection";
-import { SQLServerConnection } from "./infrastructure/SQLServerConnection";
+import { MySQLConnection } from "./infrastructure/mysql.connection";
+import { SQLServerConnection } from "./infrastructure/sqlserver.connection";
 
 
 export {

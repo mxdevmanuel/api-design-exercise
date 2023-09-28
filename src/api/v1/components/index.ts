@@ -1,5 +1,6 @@
-export { v1Component } from './component'
+export { v1Component } from './component';
 
+import TicketComponent from './tickets';
 import UserComponent from './users';
 
-export { UserComponent };
+export { UserComponent, TicketComponent };
