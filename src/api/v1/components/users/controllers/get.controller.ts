@@ -1,11 +1,11 @@
+import { NextFunction, Request, Response } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { Request, Response } from 'express';
 import { User } from '@/entities';
 import { UserService } from '@/services';
 import { container } from 'tsyringe';
 import isNil from 'lodash/isNil';
 
-export function get(req: Request, res: Response) {
+export function get(req: Request, res: Response, next: NextFunction) {
   const userService = container.resolve(UserService);
   userService
     .getUser(req.params.id)
@@ -18,5 +18,5 @@ export function get(req: Request, res: Response) {
         res.json(user);
       }
     })
-    .catch(console.error);
+    .catch(next);
 }

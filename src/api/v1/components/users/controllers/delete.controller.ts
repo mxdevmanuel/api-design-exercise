@@ -1,10 +1,10 @@
+import { NextFunction, Request, Response } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { Request, Response } from 'express';
 import { UserService } from '@/services';
 import { container } from 'tsyringe';
 import isNil from 'lodash/isNil';
 
-export function _delete(req: Request, res: Response) {
+export function _delete(req: Request, res: Response, next: NextFunction) {
   const userService = container.resolve(UserService);
   userService
     .deleteUser(req.params.id)
@@ -17,5 +17,5 @@ export function _delete(req: Request, res: Response) {
         res.json({removed: userId});
       }
     })
-    .catch(console.error);
+    .catch(next);
 }

@@ -1,11 +1,11 @@
+import { NextFunction, Request, Response } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
-import { Request, Response } from 'express';
 import { User } from '@/entities';
 import { UserService } from '@/services';
 import { container } from 'tsyringe';
 import isNil from 'lodash/isNil';
 
-export function update(req: Request, res: Response) {
+export function update(req: Request, res: Response, next: NextFunction) {
   const userService = container.resolve(UserService);
   const user = req.body as User;
   userService
@@ -21,5 +21,6 @@ export function update(req: Request, res: Response) {
     })
     .then((user: User | undefined) => {
       res.status(StatusCodes.OK).json(user);
-    });
+    })
+    .catch(next);
 }
