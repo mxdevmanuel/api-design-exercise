@@ -24,4 +24,8 @@ export class UserService {
     const { id, ...rest } = user;
     return this.userRepository.update(id, rest);
   }
+
+  deleteUser(id: string): Promise<string | undefined> {
+    return this.userRepository.remove(id);
+  }
 }

@@ -1,5 +1,5 @@
-import { create, get, list, update } from './controllers';
-import { createValidator, getValidator, listValidator, updateValidator } from './validators';
+import { _delete ,create, get, list, update } from './controllers';
+import { createValidator, deleteValidator, getValidator, listValidator, updateValidator } from './validators';
 import { Router } from 'express';
 
 export default function () {
@@ -9,6 +9,7 @@ export default function () {
   router.get('/:id', getValidator, get);
   router.post('/', createValidator, create);
   router.patch('/:id', updateValidator, update)
+  router.delete('/:id', deleteValidator, _delete)
 
   return router;
 }

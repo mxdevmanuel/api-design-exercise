@@ -74,4 +74,19 @@ export class MySQLUserDatabase implements UserDatabase {
       });
     });
   }
+  remove(id: string): Promise<string | undefined> {
+    return new Promise<string | undefined>((resolve, reject) => {
+      this.dbRepository.getConnection().then((connection) => {
+        const sql = `DELETE FROM Users WHERE id = '${id}'`;
+        connection.query(sql, (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            const rest = result.affectedRows > 0 ? id : undefined;
+            resolve(rest);
+          }
+        });
+      });
+    });
+  }
 }
