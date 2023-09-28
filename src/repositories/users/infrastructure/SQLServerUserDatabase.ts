@@ -11,6 +11,11 @@ export class SQLServerUserDatabase implements UserDatabase {
   constructor(
     @inject(SQLSERVERCONNECTION) private dbRepository: SQLServerConnection
   ) {}
+  update(id: string, user: Partial<User>): Promise<string | undefined> {
+    console.log("update id", id);
+    console.log("update user", user);
+    throw new Error('Method not implemented.');
+  }
   get(id: string): Promise<User | undefined> {
     console.log('id', id);
     throw new Error('Method not implemented.');

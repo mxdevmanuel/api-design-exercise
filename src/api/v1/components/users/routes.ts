@@ -1,5 +1,5 @@
-import { create, get, list } from './controllers';
-import { createValidator, getValidator, listValidator } from './validators';
+import { create, get, list, update } from './controllers';
+import { createValidator, getValidator, listValidator, updateValidator } from './validators';
 import { Router } from 'express';
 
 export default function () {
@@ -8,6 +8,7 @@ export default function () {
   router.get('/', listValidator, list);
   router.get('/:id', getValidator, get);
   router.post('/', createValidator, create);
+  router.patch('/:id', updateValidator, update)
 
   return router;
 }
