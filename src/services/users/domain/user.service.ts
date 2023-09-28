@@ -1,12 +1,13 @@
 import { inject, injectable } from 'tsyringe';
 import { PaginationData } from '@/modules/common';
-import { USERDATABASE } from '@/config/constants';
+import { USERREPOSITORY } from '@/config/constants';
 import { User } from '@/entities/User';
 import { UserRepository } from '@/repositories/users';
+import shortid from "shortid";
 
 @injectable()
 export class UserService {
-  constructor(@inject(USERDATABASE) private userRepository: UserRepository) {}
+  constructor(@inject(USERREPOSITORY) private userRepository: UserRepository) {}
 
   getUser(id: string): Promise<User | undefined> {
     return this.userRepository.get(id);
@@ -16,8 +17,9 @@ export class UserService {
     return this.userRepository.all(options);
   }
 
-  addUser(user: User): Promise<User> {
-    return this.userRepository.add(user);
+  addUser(user: Omit<User, 'id'>): Promise<User> {
+    const userToBe = {...user, id: shortid.generate()} as User;
+    return this.userRepository.add(userToBe);
   }
 
   updateUser(user: User): Promise<string | undefined> {

@@ -1,6 +1,6 @@
-export { UserDatabase as UserRepository} from "./infrastructure/userdatabase";
+export { UserRepository as UserRepository} from "./infrastructure/userrepository";
 
-export { SQLServerUserDatabase } from "./infrastructure/SQLServerUserDatabase";
-export { MySQLUserDatabase } from "./infrastructure/MySQLUserDatabase";
+export { SQLServerUserRepository } from "./infrastructure/sqlserver.userrepository";
+export { MySQLUserRepository } from "./infrastructure/mysql.userrepository";
 
 

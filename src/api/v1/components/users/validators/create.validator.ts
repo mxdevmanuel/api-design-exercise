@@ -3,7 +3,6 @@ import { z } from 'zod';
 
 export const createValidator: RequestHandler = (req, res, next) => {
   const createUserSchema = z.object({
-    id: z.string().max(10),
     name: z.string().max(30)
   });
   const userData = req.body;

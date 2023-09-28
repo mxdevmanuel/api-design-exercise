@@ -4,10 +4,10 @@ import { inject, injectable } from 'tsyringe';
 import { SQLSERVERCONNECTION } from '@/config/constants';
 import { SQLServerConnection } from '@/repositories/database';
 import { User } from '@/entities/User';
-import { UserDatabase } from './userdatabase';
+import { UserRepository } from './userrepository';
 
 @injectable()
-export class SQLServerUserDatabase implements UserDatabase {
+export class SQLServerUserRepository implements UserRepository {
   constructor(
     @inject(SQLSERVERCONNECTION) private dbRepository: SQLServerConnection
   ) {}
