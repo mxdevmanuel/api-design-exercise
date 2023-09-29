@@ -9,8 +9,8 @@ export function create(req: Request, res: Response, next: NextFunction) {
   const user = req.body as User;
   userService
     .addUser(user)
-    .then(() => {
-      res.sendStatus(StatusCodes.CREATED);
+    .then((userCreated: User) => {
+      res.status(StatusCodes.CREATED).json(userCreated);
     })
     .catch(next);
 }

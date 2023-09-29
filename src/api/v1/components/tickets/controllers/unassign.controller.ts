@@ -4,13 +4,16 @@ import { Ticket } from '@/entities';
 import { TicketService } from '@/services';
 import { container } from 'tsyringe';
 
-export function create(req: Request, res: Response, next: NextFunction) {
+export function unassign(req: Request, res: Response, next: NextFunction) {
   const ticketService = container.resolve(TicketService);
-  const ticket = req.body as Ticket;
+  const ticketId: string = req.params.id;
   ticketService
-    .addTicket(ticket)
-    .then((ticketCreated: Ticket) => {
-      res.status(StatusCodes.CREATED).json(ticketCreated);
+    .unassignTicket(ticketId)
+    .then((ticketId: string) => {
+      return ticketService.getTicket(ticketId);
+    })
+    .then((ticket: Ticket | undefined) => {
+      res.status(StatusCodes.OK).json(ticket);
     })
     .catch(next);
 }

@@ -1,15 +1,13 @@
 import { Request, TYPES } from 'tedious';
-
-import { inject, injectable } from 'tsyringe';
-import { SQLSERVERCONNECTION } from '@/config/constants';
 import { SQLServerConnection } from '@/repositories/database';
 import { Ticket } from '@/entities/Ticket';
 import { TicketDatabase } from './ticketsdatabase';
+import { injectable } from 'tsyringe';
 
 @injectable()
 export class SQLServerTicketDatabase implements TicketDatabase {
   constructor(
-    @inject(SQLSERVERCONNECTION) private dbRepository: SQLServerConnection
+    private dbRepository: SQLServerConnection
   ) {}
   remove(id: string): Promise<string | undefined> {
     console.log('id', id);

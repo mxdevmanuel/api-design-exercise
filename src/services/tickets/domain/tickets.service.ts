@@ -23,6 +23,15 @@ export class TicketService {
     return ticketId;
   }
 
+  async unassignTicket(
+    ticketId: string
+  ): Promise<string> {
+    const updatedTicketId = await this.ticketRepository.update(ticketId, {assigneeId: null});
+    if (isNil(updatedTicketId))
+      throw new NotFoundError([`Ticket with id '${ticketId}' not found`]);
+    return updatedTicketId;
+  }
+
   async getTicket(id: string): Promise<Ticket> {
     const ticket = await this.ticketRepository.get(id);
     if (isNil(ticket))

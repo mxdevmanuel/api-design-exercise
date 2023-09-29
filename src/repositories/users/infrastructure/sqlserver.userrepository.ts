@@ -1,23 +1,20 @@
 import { Request, TYPES } from 'tedious';
 
-import { inject, injectable } from 'tsyringe';
-import { SQLSERVERCONNECTION } from '@/config/constants';
 import { SQLServerConnection } from '@/repositories/database';
 import { User } from '@/entities/User';
 import { UserRepository } from './userrepository';
+import { injectable } from 'tsyringe';
 
 @injectable()
 export class SQLServerUserRepository implements UserRepository {
-  constructor(
-    @inject(SQLSERVERCONNECTION) private dbRepository: SQLServerConnection
-  ) {}
+  constructor(private dbRepository: SQLServerConnection) {}
   remove(id: string): Promise<string | undefined> {
     console.log('id', id);
     throw new Error('Method not implemented.');
   }
   update(id: string, user: Partial<User>): Promise<string | undefined> {
-    console.log("update id", id);
-    console.log("update user", user);
+    console.log('update id', id);
+    console.log('update user', user);
     throw new Error('Method not implemented.');
   }
   get(id: string): Promise<User | undefined> {

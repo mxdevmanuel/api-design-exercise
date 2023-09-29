@@ -1,14 +1,13 @@
-import { inject, injectable } from 'tsyringe';
-import { MYSQLCONNECTION } from '@/config/constants';
 import { MySQLConnection } from '@/repositories/database';
 import { PaginationData } from '@/modules/common';
 import { Ticket } from '@/entities';
 import { TicketDatabase } from './ticketsdatabase';
+import { injectable } from 'tsyringe';
 import isNil from 'lodash/isNil';
 
 @injectable()
 export class MySQLTicketDatabase implements TicketDatabase {
-  constructor(@inject(MYSQLCONNECTION) private dbRepository: MySQLConnection) {}
+  constructor(private dbRepository: MySQLConnection) {}
   all(options: PaginationData): Promise<Ticket[]> {
     const page = isNil(options.page) ? 0 : options.page;
     const size = isNil(options.size) ? 50 : options.size;

@@ -7,8 +7,8 @@ export function _delete(req: Request, res: Response, next: NextFunction) {
   const ticketService = container.resolve(TicketService);
   ticketService
     .deleteTicket(req.params.id)
-    .then((ticketId: string) => {
-      res.status(StatusCodes.OK).json({ removed: ticketId });
+    .then(() => {
+      res.sendStatus(StatusCodes.NO_CONTENT);
     })
     .catch(next);
 }
