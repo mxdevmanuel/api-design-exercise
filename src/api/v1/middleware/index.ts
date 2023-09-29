@@ -1,1 +1,1 @@
-export { payloadValidationError } from './payload-validation-error.middleware'
+export { errorHandler } from './errorhandler.middleware'

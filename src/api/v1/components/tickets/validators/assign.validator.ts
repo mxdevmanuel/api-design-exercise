@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+import { ValidationError } from '@/errors';
 import { z } from 'zod';
 
 export const assignValidator: RequestHandler = (req, res, next) => {
@@ -13,6 +14,6 @@ export const assignValidator: RequestHandler = (req, res, next) => {
     req.body = zodResult.data;
     next();
   } else {
-    next(zodResult.error);
+    next(new ValidationError(zodResult.error));
   }
 };
