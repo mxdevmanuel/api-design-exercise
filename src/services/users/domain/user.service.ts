@@ -2,14 +2,16 @@ import { inject, injectable } from 'tsyringe';
 import { NotFoundError } from '@/errors';
 import { PaginationData } from '@/modules/common';
 import { USERREPOSITORY } from '@/config/constants';
-import { User } from '@/entities/User';
+import { User } from '@/entities';
 import { UserRepository } from '@/repositories/users';
 import isNil from 'lodash/isNil';
 import shortid from 'shortid';
 
 @injectable()
 export class UserService {
-  constructor(@inject(USERREPOSITORY) private userRepository: UserRepository) {}
+  constructor(
+    @inject(USERREPOSITORY) private userRepository: UserRepository,
+  ) {}
 
   async getUser(id: string): Promise<User> {
     const user = await this.userRepository.get(id);

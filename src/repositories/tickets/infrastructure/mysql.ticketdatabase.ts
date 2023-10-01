@@ -2,12 +2,33 @@ import { MySQLConnection } from '@/repositories/database';
 import { PaginationData } from '@/modules/common';
 import { Ticket } from '@/entities';
 import { TicketDatabase } from './ticketsdatabase';
+import { TicketSearch } from '../domain/ticket.search';
 import { injectable } from 'tsyringe';
 import isNil from 'lodash/isNil';
 
 @injectable()
 export class MySQLTicketDatabase implements TicketDatabase {
   constructor(private dbRepository: MySQLConnection) {}
+  find(options: TicketSearch & PaginationData): Promise<Ticket[]> {
+    const page = isNil(options.page) ? 0 : options.page;
+    const size = isNil(options.size) ? 50 : options.size;
+    return new Promise<Ticket[]>((resolve, reject) => {
+      this.dbRepository.getConnection().then((connection) => {
+        connection.query(
+          `SELECT id, title, assigneeId FROM Tickets LIMIT ${size} OFFSET ${
+            size * page
+          }`,
+          (err, rows) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(Array.from(rows));
+            }
+          }
+        );
+      });
+    });
+  }
   all(options: PaginationData): Promise<Ticket[]> {
     const page = isNil(options.page) ? 0 : options.page;
     const size = isNil(options.size) ? 50 : options.size;
